@@ -1,0 +1,256 @@
+ *{
+	 margin: 0;
+	 padding: 0;
+	 box-sizing: border-box;
+	   font-family: 'Ubuntu Condensed', sans-serif;
+
+ }
+body{
+	    background-color: #151e49;
+      font-family: 'Ubuntu Condensed', sans-serif;
+
+    color:teal;
+}
+body #table{
+
+    padding:20px 150px 20px 150px;
+}
+
+.container_busqueda {
+	width: 100%;
+	min-height: 10vh;
+	padding: 5%;
+	 background-position: center;
+	 background-size: cover;
+	 display: flex;
+	 align-items: center;
+	 justify-content: center;
+	 
+}
+
+.search-bar{
+	width: 50%;
+	max-width: 700%;
+	background: rgb(83 238 188 / 20%);
+	display: flex;
+	align-items: center;
+	border-radius: 50px;
+	padding: 1px 10px;
+	backdrop-filter: blur(4px)saturate(180%);
+}
+.search-bar input{
+	background: transparent ;
+	flex: 1;
+	border: 0;
+	outline: none;
+	padding: 20px 16px;
+	font-size: 20px;
+	color: #cac7ff;
+ 
+	}
+::placeholder{
+	color: #cac7ff;
+}
+.search-bar button img{
+	width: 25px;
+	
+}
+.search-bar button{
+	
+	border: 0;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	background: #58629b;
+	cursor: pointer;
+}
+
+#table{
+    width:100%;
+    text-align: center;
+    position: relative;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:0px;
+}
+table td{
+    padding:20px;
+}
+.logo img {
+  position: relative;
+  margin-top: -10px;
+  margin: -10px;
+  padding: -100px;
+  width: 250px; /* Establece el ancho del logo en 250 píxeles */
+}
+
+.div1 {
+  background-color: #fff;
+  padding: 10px; /* Ajusta el valor de padding según tus necesidades */
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px 2px teal;
+  transition: 0.5s;
+}
+
+.div1 img {
+  width: 30%; /* Ajusta el valor de width según tus necesidades */
+}
+
+.div1:hover{
+    transform:scale(0.9);
+    box-shadow:0px 0px 5px 7px teal;
+    transition: 0.3s;
+}
+.btn{
+    padding:5px 15px 5px 15px;
+    border-radius: 20px 4px 20px 4px;
+    border:none;
+    color:white;
+}
+.btn1{
+   background-color:#2f5597;
+}
+.btn2{
+    background-color:#c55a11;
+ }
+ .btn3{
+    background-color:#00b050;
+ }
+ .btn4{
+    background-color:#7030a0;
+ }
+ p{
+     font-size:15px;
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+ }
+ .like{
+    border-bottom: 2px solid #2f5597 ;
+ }
+ .comment{
+    border-top: 2px solid #c55a11 ;
+ }
+ .share{
+    border-bottom: 2px solid #00b050 ;
+ }
+ .subs{
+    border-top: 2px solid #7030a0 ;
+  }
+.tarjeta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tarjeta {
+  width: 25%; /* Ajusta el valor del ancho según tus necesidades */
+  background-color: #000; /* Cambio del fondo a negro */
+  color: #fff; /* Cambio del color del texto a blanco */
+  padding: 20px;
+  margin: 10px; /* Ajusta el valor del margen según tus necesidades */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.tarjeta h3 {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #fff; /* Cambio del color del texto a blanco */
+}
+
+.valoracion {
+  /* Estilos para mostrar las estrellas de valoración */
+}
+
+.tarjeta p {
+  margin-top: 5px;
+  font-size: 14px;
+}
+.imagen-container {
+  position: relative;
+}
+
+.reproduccion-icono {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  color: #fff;
+  opacity: 0.8;
+}
+
+
+
+
+/* Estilos para el título */
+.titulo-destacado {
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Ubuntu Condensed', sans-serif;
+
+}
+
+/* Estilos para la tarjeta del curso */
+.curso-semana-tarjeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 60%;
+  margin: 0 auto;
+}
+
+/* Estilos para la imagen del curso */
+.curso-semana-imagen {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.curso-semana-imagen img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Estilos para la información del curso */
+.curso-semana-informacion {
+  flex: 2;
+}
+
+.curso-semana-informacion h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.curso-semana-informacion p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+/* Estilos para la valoración y el botón */
+.curso-semana-informacion .valoracion {
+  display: flex;
+  align-items: center;
+}
+
+.curso-semana-informacion .valoracion .btn {
+  margin-left: auto;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: teal;
+  color: #fff;
+  text-decoration: none;
+}
+

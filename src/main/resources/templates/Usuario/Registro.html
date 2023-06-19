@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" th:href="@{/css/Login_Style.css}">
+  <link rel="stylesheet" th:href="@{/css/estilos_Template.css}">
+      <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+
+  <title>Iniciar Sesion</title>
+</head>
+<div class="logo"><img th:src="@{../img/LEARNRED.webp}"></div>
+<body><h2>Regístrate</h2>
+    <section>
+		
+        <div class="form-box">
+			
+            <div class="form-value">
+				
+                <form th:action="@{/usuario/save}" method="post" enctype="multipart/form-data">
+                    
+                    <div class="inputbox">
+                        <ion-icon name="text"></ion-icon>
+                        <input type="text" id="Nombre_U" name="Nombre_U" required>
+                        <label for="">Nombre</label>
+                    </div>
+                     <div class="inputbox">
+                        <ion-icon name="text"></ion-icon>
+                        <input type="text" id="Apellido_U"  name="Apellido_U" required>
+                        <label for="">Apellido</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="email" id="Correo_U" name="Correo_U" required>
+                        <label for="">Correo</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="password" id="Password_U" name="Password_U" required>
+                        <label for="">Contraseña</label>
+                    </div>
+                     
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                     	
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    
+   
+        <div th:insert="~{usuario/Template_Admin.html :: footer}"></div>
+        
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     
+</body>
+</html>

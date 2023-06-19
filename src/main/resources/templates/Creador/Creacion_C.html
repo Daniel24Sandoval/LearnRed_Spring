@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <!-- ======= Styles ====== -->
+<link rel="stylesheet" href="ruta/al/archivo/bootstrap.min.css">
+
+    <link rel="stylesheet" th:href="@{../css/style_cursos.css}">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+  <div class="navigation">
+    <ul>
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </span>
+                <span class="title">Enrique Sandoval</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="home-outline"></ion-icon>
+                </span>
+                <span class="title">Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="people-outline"></ion-icon>
+                </span>
+                <span class="title">Alumnos</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="school-outline"></ion-icon>
+                </span>
+                <span class="title">Cursos</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="chatbubble-outline"></ion-icon>
+                </span>
+                <span class="title">Grupo de Estudio</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="help-outline"></ion-icon>
+                </span>
+                <span class="title">Ayuda</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <span class="icon">
+                    <ion-icon name="settings-outline"></ion-icon>
+                </span>
+                <span class="title">Configuración</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+               
+
+                <div class="user">
+                    <img src="assets/imgs/customer01.jpg" alt="">
+                </div>
+            </div>
+
+   
+
+            <!-- ================ Order Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Creacion de Datos del Curso</h2>
+                    </div>
+<form th:action="@{/creador/creacionC}"method="post" >
+  <div class="form-group">
+	     <input type="text" name="idusuario" value="1" style="display: none;">
+    <label for="categoria">Categoría de curso</label>
+    <select class="form-control" name="categoria">
+		 <option value="0">Seleccionar</option>
+      <option th:each="categoria:${categoria}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="titulo">Título	 de curso</label>
+    <input type="text" class="form-control" name="Titulo_G">
+  </div>
+  <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <textarea class="form-control" name="Descripcion"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="requisitos">Requisitos</label>
+    <textarea class="form-control" name="Requisitos"></textarea>
+  
+
+
+  </div><br><br>
+  <button type="submit" class="btn btn-primary">
+    <i class="fas fa-plus-circle"></i> Crear curso
+  </button>
+</form>
+
+                </div>
+
+                <!-- ================= New Customers ================ -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script th:src="@{../js/main_c.js}"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

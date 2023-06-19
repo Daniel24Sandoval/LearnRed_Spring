@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+ 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{css/Home_Style.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos_Template.css}">
+      <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Home</title>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo"><img th:src="@{img/LEARNRED.webp}"></div>
+            <ul class="links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Creadores</a></li>
+                <li><a href="#">Nosotros</a></li>
+        </ul>
+            <a th:href="@{usuario/login}" class="action-btn">Login</a>
+        <div class="toggle_btn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </div>
+
+         
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Comunidad de <br>
+                Aprendizaje en <br>
+                Línea gratuita y <br>
+                colaborativa</h1>
+            <p>
+                Descubre una amplia selección de cursos y <br>
+                materiales educativos de alta calidad creados <br>
+                por usuarios como tú. Personaliza tu <br>
+                experiencia de aprendizaje con <br>
+                recomendaciones por inteligencia artificial <br>
+                que se adapte a tus necesidades y <br>
+                preferencias.
+            </p>
+        </section>
+    </main>
+<div th:insert="~{usuario/Template_Admin.html :: footer}"></div>
+
+    <script>
+        const toggleBtn =document.querySelector('.toggle_btn')
+        const toggleBtnIcon =document.querySelector('.toggle_btn i')
+        const dropDownMenu =document.querySelector('.dropdown_menu')
+
+        toggleBtn.onclick = function (){
+            dropDownMenu.classList.toggle('open')
+            const isOpen = dropDownMenu.classList.contains('open')
+
+            toggleBtnIcon.classList = isOpen
+            ? 'fa-solid fa-bars'
+            : 'fa-solid fa-bars'
+        }
+    </script>
+        <div class="registro"><a href="#" class="register-btn">Registrarse</a></div>
+</body>
+</html>
