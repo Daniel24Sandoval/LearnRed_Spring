@@ -88,7 +88,7 @@ private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 	    curso.addAttribute("cursoxid", creador_Service.finAllCourseIDCurso(id));
 
 	    // OBTENER SECCIONES DEL CURSO
-	    List<Seccion_Curso> seccionesCurso = creador_Service.findSeccionesCursoByCursoId(25);
+	    List<Seccion_Curso> seccionesCurso = creador_Service.findSeccionesCursoByCursoId(id);
 
 	    // CREAR UNA LISTA PARA ALMACENAR LOS CONTENIDOS RELACIONADOS
 	    List<Contenido> contenidosRelacionados = new ArrayList<>();
