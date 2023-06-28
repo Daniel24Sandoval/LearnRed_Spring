@@ -26,7 +26,7 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 	@Override
 	public Optional<Usuario> get(Integer id) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return usuario_Dao.findById(id);
 	}
 
 	@Override
@@ -34,6 +34,12 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	// @Override
+	// public Optional<Usuario> findByCorreo_U(String Correo_U) {
+	// TODO Auto-generated method stub
+	// return usuario_Dao.findByCorreo_U(Correo_U);
+	// }
  
 	
 		 

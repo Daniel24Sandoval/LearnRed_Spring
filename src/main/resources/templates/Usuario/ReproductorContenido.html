@@ -17,13 +17,13 @@
 
 	<!-- REPRODICTO INDIVIDUAL -->
   
- <div class="container_v">
+ <div th:each="ContenidoUU: ${ContenidoU}" class="container_v">
 	 <div class="main-video">
 		 <di class="video">
       	<!-- <video src="https://ff9d473442acdcb83d4093542bb62181c068473f54000f7bac33e7b-apidata.googleusercontent.com/download/storage/v1/b/data_clound_demo_app/o/v2.mp4?jk=ARTXCFH4OWPEdEWc-G2CrsYHoxwMBju1d7lk9VHSIe1bj8TjyoJgn04LMYvm6SPjK4YeM40LOc-g7JlnLeas68ZpoPeQJXeQyELKDpZasEkJU1kRrrRZA4M-f3_Mwi9h30ZGAd5I33hEzD3zmgZO6rxMao_GCeZJucyBd86yPiomxTg-ZX1HuqFTkH8Sytzj2iE-A1g9AXDhZP09BfMDs6b5bWKBumWZM2yBSTHJx2NWLoz9m5FfNfzTsJyPWaZyPvkmVqdQ6lNBxVtNTxEY8_MzoKBDa01Rs7o9zrKHocuz6QNMd9B3gwQWLuwHnUNbxp4SbzeXmuNs5QW-qvTqOchMabaCOMLjPRv1I2-2JzSYFJg6WTsmGF62W1QUWuYJ-7q00X4FNeTfHeXLf9Y79AqAJgKTVlAJRjZ7CIBJnDoLvZtH983Wb4ktXXKJQuvR0uP9-xQXXQT8cD9VpOc_JtHGcw8HIoe699PQmv--068jGAmguaSGJMT0xJ64MkrvqdmMYe14kP1b9tZYPAAQMlMyvzubJ8ZgoyY9fj-KB8hwwSpBfuMGPgvEieWHLjPDJZdH-D1mwpnQUYm8wvZvw542juAGyvaBtTPOzGPx4V1NkRvp6AF0bObSjnqMbmqxWaFcq4u-wVk_LfaUDDcnV3uNV2hcpVf1BQCq67hqUdxwMb8FB2a5E-ioRcrmrWKihIvhkcZ3HLumr_WAvskgauO7uFOVzad5TmRGrYCjCaBbKwuIqLT003CwXhlUXmYalNULK9dIuTgp0leHck8VteaSQ-V1_05cxohw57PiVo8Lv3iElj0O3TVdosbL6VkBitT6ilAwzlRem5-0mXl_qlRIeju0ffcxDPn0ODR7EwV0dGkv29BGdwN6VxwHXW8H-lDzYJyHndJ6GyCo8uN9lp8QcR5OdQa5hkAIFW4T27yYi3-e5QalO5fvOjygoZm0VdtbGvOlAxyaGjoyZzAlEKUunssp0UuW_z5QvH_84PaADjUXW86qqQoMpsleSld63QVOxIQiZo7sqWhEkB2UX56cFmBTWiokn9Pm6eIqsY6LPNcXk9ZkIYOWfxgSqTGnu2jogGNKO1nwPw05GkMol26AogulLcrshs0_e9y1Gz4VeTETeLU44vXuUZqeihCyds_cET45hJYuUF1bth2SznjiN8fQCrDPfYGwY3JgFJQmvov9n5nrGag7GGMxr9PsJBhbxvyLBfDwqQ-X4mEenYsxTIbGEKAPmmZoIKUkMm0903f6gPAeRvXv-QeeKN2zQB2MBF04&isca=1" controls muted autoplay></video>-->
-						 <video   src="../VideoP/v1.mp4" controls muted autoplay></video>
+						 <video   th:src="${ContenidoUU.Archivo}" controls muted autoplay></video>
  
-			 <h3  class="title_v">Presentacion del Curso</h3>
+			 <h3  class="title_v" th:text="${ContenidoUU.Titulo}"></h3>
 		 </di>
 	 </div>
 
@@ -86,14 +86,15 @@
       
       
 	
-	  <div class="additional-info" id="archivos">
-	    <h3>Archivos utilizados:</h3>
-	    <ul>
-	      <li>Archivo de video 1</li>
-	      <li>Archivo de video 2</li>
-	      <li>Archivo de video 3</li>
-	    </ul>
-	  </div>
+ <div th:each="ContenidoUU: ${ContenidoU}" class="additional-info" id="archivos">
+    <h3>Archivos utilizados en el Video:</h3>
+    <ul>
+        <li>
+            <a th:href="@{${ContenidoUU.Tipo_Archivo}}" th:text="${ContenidoUU.Tipo_Archivo}">Enlace de descarga</a>
+        </li>
+    </ul>
+</div>
+
 	 <!-- Comemtarios -->
  
 <section>
@@ -312,7 +313,26 @@
  
 
 		<!-- FIN ABAJO   -->
- 
+	  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let listVideo = document.querySelectorAll('.video-list .vid');
+        let mainVideo = document.querySelector('.main-video video');
+        let title = document.querySelector('.main-video .title');
+
+        listVideo.forEach(video => {
+            video.addEventListener("click", function() {
+                listVideo.forEach(vid => vid.classList.remove('active'));
+                video.classList.add('active');
+                if (video.classList.contains('active')) {
+                    let src = video.querySelector('video').getAttribute('src');
+                    mainVideo.src = src;
+                    let text = video.querySelector('.title').innerHTML;
+                    title.innerHTML = text;
+                }
+            });
+        });
+    });
+</script>
 
 <script>
   function showSection(sectionId) {

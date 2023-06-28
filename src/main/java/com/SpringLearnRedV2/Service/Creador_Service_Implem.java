@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.SpringLearnRedV2.Dao.Categoria_Dao;
 import com.SpringLearnRedV2.Dao.Contenido_Dao;
+import com.SpringLearnRedV2.Dao.Contenido_Daoo;
 import com.SpringLearnRedV2.Dao.Creador_Dao;
 import com.SpringLearnRedV2.Dao.Curso_Dao;
 import com.SpringLearnRedV2.Dao.Secciones_Dao;
@@ -16,6 +17,11 @@ import com.SpringLearnRedV2.Model.CreadorU;
 import com.SpringLearnRedV2.Model.Curso;
 import com.SpringLearnRedV2.Model.Seccion_Curso;
 import com.SpringLearnRedV2.Model.Usuario;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
  
 @Service
@@ -31,6 +37,7 @@ public class Creador_Service_Implem implements Creador_Service{
 	  private  Secciones_Dao secciones_Dao ;
 	@Autowired
 	  private  Contenido_Dao contenido_Dao ;
+ 
 	
 	
 	@Override
@@ -118,10 +125,11 @@ public class Creador_Service_Implem implements Creador_Service{
 	}
 
 	@Override
-	public List<Contenido> findContenidoBySeccionId(Integer seccionCursoId) {
+	public List<Contenido> findContenidoBySeccionId(Integer seccionId) {
 		// TODO Auto-generated method stub
-		 
-		return contenido_Dao.findAll();
+		///contenido_Dao.findById(seccionCursoId).orElse(null);
+		 return contenido_Dao.findByid(seccionId);
+		///return contenido_Dao.findBySeccionCursoId(seccionId);
 	}
 	
 	
@@ -176,6 +184,16 @@ public class Creador_Service_Implem implements Creador_Service{
 	    // TODO Auto-generated method stub
 	    return contenido_Dao.findAll();
 	}
+
+	@Override
+	public List<Contenido> finAllContenidoById(Integer id) {
+		// TODO Auto-generated method stub
+	      ///contenido_Dao.findById(id).orElse(null);
+		return contenido_Dao.findAllById(id);
+	}
+
+ 
+ 
 
 
 }

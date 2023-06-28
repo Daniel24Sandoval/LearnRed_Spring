@@ -22,10 +22,10 @@ public interface Creador_Service {
 
 	    public List<Seccion_Curso> findSeccionesCursoByCursoId(Integer curso_id);
 	    public List<Categoria> findAllCategorias();
-	    public List<Contenido> findContenidoBySeccionId(Integer seccionCursoId);
+	    public List<Contenido> findContenidoBySeccionId(Integer seccion_Curso);
+	    public List<Contenido> finAllContenidoById(Integer contenido_id);
 	    public List<Contenido> findContenidoByCursoId(Integer curso_id );
-
-	    /// UPDATE
+ 	    /// UPDATE
 	    public Curso updateCurso(Integer idCurso, Curso curso);
 	   /// public List<Seccion_Curso> findSeccionesByCursoId(Integer cursoId);
 	    public Seccion_Curso updateSeccionCurso(Integer idSeccionCurso, Seccion_Curso seccionCurso);
