@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{../css/Style_Inicio.css}" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/estilos_Template.css}">
+    <link rel="stylesheet" th:href="@{/css/style_nabvar.css}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<body>
+	          <div th:insert="~{usuario/Template_Admin.html :: header}"></div>
+
+	
+ 
+	
+	
+	
+	<!-- PRESENTACION DE CURSO DESTACADO -->
+
+<h1 class="titulo-destacado">¡Conviértete en un creador de contenido!</h1>
+
+<div class="curso-semana-tarjeta">
+	
+  
+ <div th:each="usuario: ${usuario}"class="curso-semana-informacion">
+<h3 th:text="'Estimado: ' + ${usuario.orElse(null)?.Nombre}"></h3>
+
+  <p>¡Gracias por tu interés en convertirte en creador de contenido en nuestra plataforma educativa! Nos complace que desees compartir tu conocimiento y experiencia con nuestra comunidad educativa.</p>
+  <p>Queremos asegurarnos de ofrecer contenido de calidad a nuestros usuarios, por lo que es importante que nuestros creadores de contenido mantengan altos estándares. Como creador de contenido, tendrás la oportunidad de contribuir a la educación de miles de estudiantes y ayudar a hacer una diferencia significativa en sus vidas.</p>
+  <p>Al unirte como creador de contenido, aceptas los siguientes términos y condiciones:</p>
+  <div class="valoracion">
+    <!-- Código para mostrar las estrellas de valoración -->
+     
+    <a href="enlace-curso" class="c">Ver Ahora</a>
+    <a th:href="@{/usuario/Aceptar}" class="btn">Aceptar</a>
+  </div>
+ 
+</div>
+</div>
+<br><br><br>
+
+
+ 
+
+
+	
+
+	
+    
+   <script th:src="@{../js/jquery.min.js}"></script>
+    <script th:src="@{../js/main.js}"></script>
+    
+ 
+
+
+
+
+</body>
+          <div th:insert="~{usuario/Template_Admin.html :: footer}"></div>
+
+     
+</html>

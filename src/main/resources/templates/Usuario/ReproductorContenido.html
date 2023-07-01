@@ -43,14 +43,19 @@
 
 
 	  </div>
+	  
 	  	<!--   PARTE DE ABAJO -->
 		  	<div class="container_d">
+			
 	   <div class="mini-navbar">
+		   <div th:each="ContenidoUU: ${ContenidoU}" > <i  style="color: white;" class="fas fa-eye"></i>
+<a href="" th:text="'Vistas: ' + ${ContenidoUU.Vizualizacion}">
+    </div>	
     <a href="#descripcion" class="active" onclick="showSection('descripcion')"><i class="fas fa-info-circle"></i> Descripción Del Curso</a>
     <a href="#archivos" onclick="showSection('archivos')"><i class="fas fa-folder-open"></i> Archivos</a>
     <a href="#comentarios" onclick="showSection('comentarios')"><i class="fas fa-comments"></i> Comentarios</a>
     <a href="#valoracion" onclick="showSection('valoracion')"><i class="fas fa-star"></i> Valoración</a>
-  </div>
+  </div> 
  <!-- DESCRIPCIÓN DEL VIDEO -->
  
  <div th:each="cursoxidALL: ${cursoxid}" class="video-details" id="descripcion">

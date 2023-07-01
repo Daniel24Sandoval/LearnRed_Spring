@@ -20,40 +20,59 @@ public class Usuario {
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int id;
-		private String Nombre_U;
-		private String Apellido_U;
-		private String Correo_U;
-		private String Password_U;
-		private String Estado_U;
-		private Date FechaC_U;
-		private Boolean Creador_U;
-		//CARDINIALIDAD DIRECTA:
-		@OneToOne(mappedBy = "usuario")
-		private CreadorU cradoru;
-		@OneToOne(mappedBy = "usuario")
-		private Valoracion valoracion;
-		@OneToMany(mappedBy = "usuario")
-		private List<Comentario> comentario;
-		@OneToMany(mappedBy = "usuario")
-		private List<Integracion_GrupoE> integracion_GrupoE;
-		//CARDINIALIDAD INDIRECTA:
+		private String nombre;
+		private String apellido;
+		private String correo;
+		private String password;
+		private String rol;
+		private String estado;
+		private Date fechaC;
+		private Boolean creador;
 		
+
+		//CARDINIALIDAD DIRECTA:
+				@OneToOne(mappedBy = "usuario")
+				private CreadorU cradoru;
+				@OneToOne(mappedBy = "usuario")
+				private Valoracion valoracion;
+				@OneToMany(mappedBy = "usuario")
+				private List<Comentario> comentario;
+				@OneToMany(mappedBy = "usuario")
+				private List<Integracion_GrupoE> integracion_GrupoE;
+				//CARDINIALIDAD INDIRECTA:
 		public Usuario() {
 		}
 
 
-		public Usuario(int id, String nombre_U, String apellido_U, String correo_U, String password_U, String estado_U,
-				Date fechaC_U, Boolean creador_U) {
+
+
+	 
+
+
+ 
+
+
+		public Usuario(int id, String nombre, String apellido, String rol, String correo, String password, String estado,
+				Date fechaC, Boolean creador) {
 			super();
 			this.id = id;
-			Nombre_U = nombre_U;
-			Apellido_U = apellido_U;
-			Correo_U = correo_U;
-			Password_U = password_U;
-			Estado_U = estado_U;
-			FechaC_U = fechaC_U;
-			Creador_U = creador_U;
+			this.nombre = nombre;
+			this.apellido = apellido;
+			this.correo = correo;
+			this.password = password;
+			this.estado = estado;
+			this.rol = rol;
+			this.fechaC = fechaC;
+			this.creador = creador;
 		}
+
+
+
+
+
+
+
+
 
 
 		public int getId() {
@@ -61,89 +80,233 @@ public class Usuario {
 		}
 
 
+
+
+
+
+
+
+
+
 		public void setId(int id) {
 			this.id = id;
 		}
 
 
-		public String getNombre_U() {
-			return Nombre_U;
+
+
+
+
+
+
+
+
+		public String getNombre() {
+			return nombre;
 		}
 
 
-		public void setNombre_U(String nombre_U) {
-			Nombre_U = nombre_U;
+
+
+
+
+
+
+
+
+		public void setNombre(String nombre) {
+			this.nombre = nombre;
 		}
 
 
-		public String getApellido_U() {
-			return Apellido_U;
+
+
+
+
+
+
+
+
+		public String getApellido() {
+			return apellido;
 		}
 
 
-		public void setApellido_U(String apellido_U) {
-			Apellido_U = apellido_U;
+
+
+
+
+
+
+
+
+		public void setApellido(String apellido) {
+			this.apellido = apellido;
 		}
 
 
-		public String getCorreo_U() {
-			return Correo_U;
+
+
+
+
+
+
+
+
+		public String getCorreo() {
+			return correo;
 		}
 
 
-		public void setCorreo_U(String correo_U) {
-			Correo_U = correo_U;
+
+
+
+
+
+
+
+
+		public void setCorreo(String correo) {
+			this.correo = correo;
 		}
 
 
-		public String getPassword_U() {
-			return Password_U;
+
+
+
+
+
+
+
+
+		public String getPassword() {
+			return password;
 		}
 
 
-		public void setPassword_U(String password_U) {
-			Password_U = password_U;
+
+
+
+
+
+
+
+
+		public void setPassword(String password) {
+			this.password = password;
 		}
 
 
-		public String getEstado_U() {
-			return Estado_U;
+
+
+
+
+
+
+
+
+		public String getRol() {
+			return rol;
 		}
 
 
-		public void setEstado_U(String estado_U) {
-			Estado_U = estado_U;
+
+
+
+
+
+
+
+
+		public void setRol(String rol) {
+			this.rol = rol;
 		}
 
 
-		public Date getFechaC_U() {
-			return FechaC_U;
+
+
+
+
+
+
+
+
+		public String getEstado() {
+			return estado;
 		}
 
 
-		public void setFechaC_U(Date fechaC_U) {
-			FechaC_U = fechaC_U;
+
+
+
+
+
+
+
+
+		public void setEstado(String estado) {
+			this.estado = estado;
 		}
 
 
-		public Boolean getCreador_U() {
-			return Creador_U;
+
+
+
+
+
+
+
+
+		public Date getFechaC() {
+			return fechaC;
 		}
 
 
-		public void setCreador_U(Boolean creador_U) {
-			Creador_U = creador_U;
+
+
+
+
+
+
+
+
+		public void setFechaC(Date fechaC) {
+			this.fechaC = fechaC;
 		}
 
 
-		public CreadorU getCradoru() {
-			return cradoru;
+
+
+
+
+
+
+
+
+		public Boolean getCreador() {
+			return creador;
 		}
 
 
-		public void setCradoru(CreadorU cradoru) {
-			this.cradoru = cradoru;
+
+
+
+
+
+
+
+
+		public void setCreador(Boolean creador) {
+			this.creador = creador;
 		}
+
+
+
+
+
+
+
+
 
 
 		public Valoracion getValoracion() {
@@ -151,9 +314,25 @@ public class Usuario {
 		}
 
 
+
+
+
+
+
+
+
+
 		public void setValoracion(Valoracion valoracion) {
 			this.valoracion = valoracion;
 		}
+
+
+
+
+
+
+
+
 
 
 		public List<Comentario> getComentario() {
@@ -161,9 +340,25 @@ public class Usuario {
 		}
 
 
+
+
+
+
+
+
+
+
 		public void setComentario(List<Comentario> comentario) {
 			this.comentario = comentario;
 		}
+
+
+
+
+
+
+
+
 
 
 		public List<Integracion_GrupoE> getIntegracion_GrupoE() {
@@ -171,31 +366,48 @@ public class Usuario {
 		}
 
 
+
+
+
+
+
+
+
+
 		public void setIntegracion_GrupoE(List<Integracion_GrupoE> integracion_GrupoE) {
 			this.integracion_GrupoE = integracion_GrupoE;
 		}
 
 
-		public Usuario(int id, String nombre_U, String apellido_U, String correo_U, String password_U, String estado_U,
-				Date fechaC_U, Boolean creador_U, CreadorU cradoru, Valoracion valoracion, List<Comentario> comentario,
-				List<Integracion_GrupoE> integracion_GrupoE) {
-			super();
-			this.id = id;
-			Nombre_U = nombre_U;
-			Apellido_U = apellido_U;
-			Correo_U = correo_U;
-			Password_U = password_U;
-			Estado_U = estado_U;
-			FechaC_U = fechaC_U;
-			Creador_U = creador_U;
-			this.cradoru = cradoru;
-			this.valoracion = valoracion;
-			this.comentario = comentario;
-			this.integracion_GrupoE = integracion_GrupoE;
-		}
-		
 
-		
+
+
+
+
+
+
+
+		@Override
+		public String toString() {
+			return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
+					+ ", password=" + password + ", rol=" + rol + ", estado=" + estado + ", fechaC=" + fechaC
+					+ ", creador=" + creador + ", valoracion=" + valoracion + ", comentario=" + comentario
+					+ ", integracion_GrupoE=" + integracion_GrupoE + ", getId()=" + getId() + ", getNombre()="
+					+ getNombre() + ", getApellido()=" + getApellido() + ", getCorreo()=" + getCorreo()
+					+ ", getPassword()=" + getPassword() + ", getRol()=" + getRol() + ", getEstado()=" + getEstado()
+					+ ", getFechaC()=" + getFechaC() + ", getCreador()=" + getCreador() + ", getValoracion()="
+					+ getValoracion() + ", getComentario()=" + getComentario() + ", getIntegracion_GrupoE()="
+					+ getIntegracion_GrupoE() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+					+ ", toString()=" + super.toString() + "]";
+		}
+
+
+ 
+
+ 
+ 
+	 
+
 		
 		
 		

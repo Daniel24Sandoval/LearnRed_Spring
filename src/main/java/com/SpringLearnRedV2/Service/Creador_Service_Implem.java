@@ -1,6 +1,7 @@
 package com.SpringLearnRedV2.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +10,10 @@ import com.SpringLearnRedV2.Dao.Categoria_Dao;
 import com.SpringLearnRedV2.Dao.Contenido_Dao;
 import com.SpringLearnRedV2.Dao.Contenido_Daoo;
 import com.SpringLearnRedV2.Dao.Creador_Dao;
+import com.SpringLearnRedV2.Dao.Creador_U_Dao;
 import com.SpringLearnRedV2.Dao.Curso_Dao;
 import com.SpringLearnRedV2.Dao.Secciones_Dao;
+import com.SpringLearnRedV2.Dao.Usuario_Dao;
 import com.SpringLearnRedV2.Model.Categoria;
 import com.SpringLearnRedV2.Model.Contenido;
 import com.SpringLearnRedV2.Model.CreadorU;
@@ -37,7 +40,8 @@ public class Creador_Service_Implem implements Creador_Service{
 	  private  Secciones_Dao secciones_Dao ;
 	@Autowired
 	  private  Contenido_Dao contenido_Dao ;
- 
+	@Autowired
+	  private  Usuario_Dao usuario_Dao ;
 	
 	
 	@Override
@@ -90,8 +94,9 @@ public class Creador_Service_Implem implements Creador_Service{
 	@Override
 	public CreadorU save(CreadorU creadorU, Integer idUsuario) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		Usuario usuario=usuario_Dao.findById(idUsuario).orElse(null);
+		creadorU.setUsuario(usuario);
+		return creador_Dao.save(creadorU);
 	}
 
 	@Override
@@ -100,11 +105,11 @@ public class Creador_Service_Implem implements Creador_Service{
 	    
 	    // Iterar sobre los cursos y obtener el nombre del usuario
 	    for (Curso curso : cursos) {
-	        CreadorU creador = curso.getCreadorU(); // Obtener el objeto Creador del curso
-	        Usuario usuario = creador.getUsuario(); // Obtener el objeto Usuario del Creador
+	        CreadorU creadorU = curso.getCreadorU(); // Obtener el objeto Creador del curso
+	        Usuario usuario = creadorU.getUsuario(); // Obtener el objeto Usuario del Creador
 	        
 	        // Obtener el nombre del usuario y establecerlo en el curso
-	        String nombreUsuario = usuario.getNombre_U();
+	        String nombreUsuario = usuario.getNombre();
 	        curso.setVizualizacion_G(nombreUsuario);
 	    }
 	    
@@ -168,7 +173,7 @@ public class Creador_Service_Implem implements Creador_Service{
 	@Override
 	public List<Curso> finAllCourseIDCreador(Integer creadorU_id) {
 		// TODO Auto-generated method stub
-		return  curso_Dao.findAll();
+		return  curso_Dao.findAllByCreadorU_id(creadorU_id);
 	}
 
 	@Override
@@ -192,6 +197,35 @@ public class Creador_Service_Implem implements Creador_Service{
 		return contenido_Dao.findAllById(id);
 	}
 
+ 
+
+	@Override
+	public Optional<CreadorU> get(Integer usuario_id) {
+		// TODO Auto-generated method stub
+		return creador_Dao.findByUsuario_id(usuario_id);
+	}
+
+	@Override
+	public Curso updateVistaCurso(Integer idCurso, Integer visualizacion) {
+		// BUSCAR EL CURSO EXISTENTE EN LA BASE DE DATOS
+		Curso cursoExistente = curso_Dao.findById(idCurso).orElse(null);
+
+	 
+		// VERIFICAR SI EL CURSO EXISTE
+		if (cursoExistente != null) {
+		    // ACTUALIZAR LOS DATOS DEL CURSO EXISTENTE
+			String vista= visualizacion+"";
+		    cursoExistente.setVizualizacion_G(vista);
+ 
+		    return curso_Dao.save(cursoExistente);
+		}else {
+			return null;
+		}
+
+		  
+	}
+
+	 
  
  
 

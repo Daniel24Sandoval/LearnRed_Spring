@@ -1,12 +1,14 @@
 package com.SpringLearnRedV2.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.SpringLearnRedV2.Model.Categoria;
 import com.SpringLearnRedV2.Model.Contenido;
 import com.SpringLearnRedV2.Model.CreadorU;
 import com.SpringLearnRedV2.Model.Curso;
 import com.SpringLearnRedV2.Model.Seccion_Curso;
+import com.SpringLearnRedV2.Model.Usuario;
 
  
 public interface Creador_Service {
@@ -19,14 +21,17 @@ public interface Creador_Service {
 	    public List<Curso> findAllCursos();
 	    public List<Curso> finAllCourseIDCreador(Integer creadorU_id);
 	    public List<Curso> finAllCourseIDCurso(Integer id);
-
+	   /// public Contenido  finAllContenidoUniqueById(Integer contenido_id); 
 	    public List<Seccion_Curso> findSeccionesCursoByCursoId(Integer curso_id);
 	    public List<Categoria> findAllCategorias();
 	    public List<Contenido> findContenidoBySeccionId(Integer seccion_Curso);
 	    public List<Contenido> finAllContenidoById(Integer contenido_id);
 	    public List<Contenido> findContenidoByCursoId(Integer curso_id );
+	    //public List<CreadorU>  findCreadorById(Integer id);
+	    public Optional<CreadorU> get(Integer id);
  	    /// UPDATE
 	    public Curso updateCurso(Integer idCurso, Curso curso);
+	    public Curso updateVistaCurso(Integer idCurso, Integer visualizacion);
 	   /// public List<Seccion_Curso> findSeccionesByCursoId(Integer cursoId);
 	    public Seccion_Curso updateSeccionCurso(Integer idSeccionCurso, Seccion_Curso seccionCurso);
 	    public Contenido updateContenido(Integer idContenido, Contenido contenido);

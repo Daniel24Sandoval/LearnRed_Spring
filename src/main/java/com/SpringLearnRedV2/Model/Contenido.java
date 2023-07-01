@@ -21,7 +21,7 @@ public class Contenido {
 	private String Archivo;
 	private String Tipo_Archivo;
 	private Date Fecha_Subida;
-	private String Vizualizacion;
+	private int Vizualizacion;
 	//CARDINALIDAD
 	@ManyToOne
 	private Seccion_Curso seccion_Curso;
@@ -29,7 +29,7 @@ public class Contenido {
 		super();
 	}
 	public Contenido(int id, String titulo, String descripcion, String archivo, String tipo_Archivo, Date fecha_Subida,
-			String vizualizacion) {
+			int vizualizacion) {
 		super();
 		this.id = id;
 		Titulo = titulo;
@@ -75,10 +75,10 @@ public class Contenido {
 	public void setFecha_Subida(Date fecha_Subida) {
 		Fecha_Subida = fecha_Subida;
 	}
-	public String getVizualizacion() {
+	public int getVizualizacion() {
 		return Vizualizacion;
 	}
-	public void setVizualizacion(String vizualizacion) {
+	public void setVizualizacion(int vizualizacion) {
 		Vizualizacion = vizualizacion;
 	}
 	public Seccion_Curso getSeccion_Curso() {

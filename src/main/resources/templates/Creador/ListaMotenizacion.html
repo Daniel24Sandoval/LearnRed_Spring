@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
     <!-- ======= Styles ====== -->
-    <link rel="stylesheet" th:href="@{css/style_cursos.css}">
+    <link rel="stylesheet" th:href="@{../css/style_cursos.css}">
 </head>
 
 <body>
@@ -46,7 +46,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a th:href="@{/creador}">
                 <span class="icon">
                     <ion-icon name="school-outline"></ion-icon>
                 </span>
@@ -64,7 +64,7 @@
         </li>
 
  <li>
-    <a th:href="@{/creador/ListaMotenizacion}">
+    <a href="#">
         <span class="icon">
             <ion-icon name="cash-outline"></ion-icon>
         </span>
@@ -109,8 +109,8 @@
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Cursos</h2>
-                        <a th:href="@{creador/Creacion_C}" class="btn">Crear Curso</a>
+                        <h2>Cursos Monetizados</h2>
+                        
                     </div>
 
                     <table>
@@ -119,8 +119,7 @@
                                 <td>Titulo</td>
                                  <td>Vistas Totales</td>
                                
-                                <td>Update</td>
-                                <td>Delete</td>
+                                <td>Ver Estadisticas</td>
                             </tr>
                         </thead>
 
@@ -130,8 +129,8 @@
         <tr th:each="curso: ${cursos}">
             <td th:text="${curso.Titulo_G}"></td>
             <td th:text="${curso.Vizualizacion_G}"></td>
-            <td><span class="status inProgress">Actualizar</span></td>
-            <td><span class="status return">Eliminar</span></td>
+            <td ><a  th:href="@{/creador/monetizacion(id=${curso.id})}"><button type="button" value="" class="status inProgress">[-   Ir a Estadisticas   -]	</button></a></td>
+ 
         </tr>
     </th:block>
     <!-- Mostrar un mensaje alternativo cuando no hay cursos disponibles -->

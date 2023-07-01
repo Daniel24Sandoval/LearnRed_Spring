@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.SpringLearnRedV2.Model.Contenido;
 import com.SpringLearnRedV2.Model.Usuario;
 
  
@@ -13,5 +14,9 @@ public interface Usuario_Service {
 	public Usuario save(Usuario usuario);
 	public Optional<Usuario> get(Integer id);
 	public List<Usuario> finaAll();
-	///public Optional<Usuario> findByCorreo_U(String Correo_U);
+	public Optional<Usuario> findByCorreo(String correo);
+	//public Optional<Usuario> findByid(int id);
+	public Contenido updateVizualizacion(int Vizualizacion,int idContenido);
+	public Usuario updatemodCreadorById(boolean creadror, int idusario);
+	
 	 }

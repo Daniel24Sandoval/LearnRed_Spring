@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
-    <!-- ======= Styles ====== -->
-    <link rel="stylesheet" th:href="@{css/style_cursos.css}">
-</head>
+	<head>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+	    <!-- ======= Styles ====== -->
+<link rel="stylesheet" th:href="@{../css/style_cursos.css}">
+ <link rel="stylesheet" th:href="@{../css/Style_Inicio.css}" type="text/css" />
+
+	</head>
 
 <body>
     <!-- =============== Navigation ================ -->
@@ -27,8 +29,8 @@
             </a>
         </li>
 
-        <li>
-            <a th:href="@{/creador/dash}">
+        <li class="active">
+            <a href="">
                 <span class="icon">
                     <ion-icon name="home-outline"></ion-icon>
                 </span>
@@ -37,7 +39,7 @@
         </li>
 
         <li>
-            <a >
+            <a href="#">
                 <span class="icon">
                     <ion-icon name="people-outline"></ion-icon>
                 </span>
@@ -46,7 +48,8 @@
         </li>
 
         <li>
-            <a href="#">
+ 					<a th:href="@{/creador}">
+
                 <span class="icon">
                     <ion-icon name="school-outline"></ion-icon>
                 </span>
@@ -63,6 +66,7 @@
             </a>
         </li>
 
+
  <li>
     <a th:href="@{/creador/ListaMotenizacion}">
         <span class="icon">
@@ -71,7 +75,6 @@
         <span class="title">Monetización</span>
     </a>
 </li>
-
 
         <li>
             <a href="#">
@@ -107,53 +110,88 @@
 
             <!-- ================ Order Details List ================= -->
             <div class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Cursos</h2>
-                        <a th:href="@{creador/Creacion_C}" class="btn">Crear Curso</a>
-                    </div>
+	                <div class="recentOrders">
+ <div class="cardHeader">
+    <h2>RESUMEN DE LA CUENTA:	</h2>
+    <h2 th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy')}"></h2>
+    <h2>Hora: <span id="hora"></span></h2>
+    <h1 id="categoria" class="titulo-destacado">Categorías</h1>
+</div>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Titulo</td>
-                                 <td>Vistas Totales</td>
-                               
-                                <td>Update</td>
-                                <td>Delete</td>
-                            </tr>
-                        </thead>
-
-							<tbody>
-    <!-- Verificar si la lista de cursos no está vacía antes de iterar sobre ella -->
-    <th:block th:if="${not #lists.isEmpty(cursos)}">
-        <tr th:each="curso: ${cursos}">
-            <td th:text="${curso.Titulo_G}"></td>
-            <td th:text="${curso.Vizualizacion_G}"></td>
-            <td><span class="status inProgress">Actualizar</span></td>
-            <td><span class="status return">Eliminar</span></td>
-        </tr>
-    </th:block>
-    <!-- Mostrar un mensaje alternativo cuando no hay cursos disponibles -->
-    <th:block th:unless="${not #lists.isEmpty(cursos)}">
+                <table id="table">
+        
         <tr>
-            <td colspan="4">No hay cursos disponibles en este momento.</td>
+            <td colspan="4">
+            </td>
         </tr>
-    </th:block>
-</tbody>
-
-                    </table>
+        <tr>
+            <td>
+                <div   style="text-align: center;"  class="div1">
+                    <img src="../img/curso-online.png" style="width: 50%;" />
+                    <p>Cursos</p><br>
+                    <button  th:text="${cantidadC}" class="btn btn1"> </button>
+                     
                 </div>
+            </td>
+            <td>
+                <div style="text-align: center;" class="div1">
+                <img src="../img/visual.png" style="width: 50%;" />
+                <p>Visualizaciones Totales</p><br>
+                <button class="btn btn2">1032</button>
+                 
+                </div>
+            </td>
+            <td>
+                <div  style="text-align: center;" class="div1">
+                <img src="../img/graduado.png" style="width: 50%;" />
+                <p>Estudiantes</p><br>
+                <button class="btn btn3">Ver +</button>
+                 
+                </div>
+            </td>
+            <td>
+                <div style="text-align: center;" class="div1">
+                <img src="../img/clasificacion.png" style="width: 50%;" />
+                <p>Valoracion</p><br>
+                <button class="btn btn4">Ver +</button>
+               
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">&nbsp;</td>
+        </tr>
+    </table>
+	                    </div>
+	
+	
+	                </div>
 
                 <!-- ================= New Customers ================ -->
 
-            </div>
         </div>
+        
     </div>
 
     <!-- =========== Scripts =========  -->
-    <script th:src="@{../js/main_c.js}"></script>
+    <script>
+    function actualizarHora() {
+        var fechaActual = new Date();
+        var hora = fechaActual.getHours();
+        var minutos = fechaActual.getMinutes();
+        var segundos = fechaActual.getSeconds();
 
+        var horaActual = hora + ':' + minutos + ':' + segundos;
+
+        document.getElementById('hora').innerText = horaActual;
+    }
+
+    // Actualizar la hora cada segundo
+    setInterval(actualizarHora, 1000);
+</script>
+    <script th:src="@{../js/main_c.js}"></script>
+<script th:src="@{../js/jquery.min.js}"></script>
+    
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

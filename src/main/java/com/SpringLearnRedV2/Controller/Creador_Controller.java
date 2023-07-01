@@ -2,7 +2,11 @@ package com.SpringLearnRedV2.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +22,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.SpringLearnRedV2.Model.Contenido;
+import com.SpringLearnRedV2.Model.CreadorU;
 import com.SpringLearnRedV2.Model.Curso;
 import com.SpringLearnRedV2.Model.Seccion_Curso;
+import com.SpringLearnRedV2.Model.Usuario;
 import com.SpringLearnRedV2.Service.Creador_Service;
+import com.SpringLearnRedV2.Service.Usuario_Service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -31,15 +39,209 @@ public class Creador_Controller {
 	 private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 	@Autowired
 	private Creador_Service creador_Service;
+	@Autowired
+	private Usuario_Service usuario_Service;
+	
+	
+	
 	
 	
 	
 	@GetMapping("")
-	public String courses(Model model) {
-		model.addAttribute("cursoList", creador_Service.finAllCourseIDCreador(1));
-		return "creador/Cursos";
+	public String Cursos(HttpSession session, Model model, Model usuario,HttpSession sessioUSER) {
+	    int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+	    model.addAttribute("cursoList", creador_Service.finAllCourseIDCreador(1));
+	    session.getAttribute("idusuario");
+	    
+	 // OBTENER EL ATRIBUTO DE USUARIO DESDE EL MODELO
+	    Usuario usuarioObject = (Usuario) model.getAttribute("usuario");
+	    if (usuarioObject != null) {
+	        usuario.addAttribute("Usuario", usuarioObject);
+	    } else {
+	    	// SI EL ATRIBUTO DE USUARIO NO ESTÁ PRESENTE EN EL MODELO, OBTENERLO DEL SERVICIO
+ 
+	        Optional<Usuario> optionalUsuario = usuario_Service.get(idUsuario);
+	        usuarioObject = optionalUsuario.orElse(null); // Obtener el objeto Usuario o asignar null si el Optional está vacío
+	        usuario.addAttribute("Usuario", usuarioObject);
+	        
+	     // GUARDAR EL ATRIBUTO DE USUARIO EN EL MODELO PARA FUTURAS SOLICITUDES
+	        model.addAttribute("usuario", usuarioObject);
+	    }
+	    //CAPTURAR EL ID DEL CREADOR
+	    Optional<CreadorU> optionalCreador = creador_Service.get(idUsuario);
+	    if (optionalCreador.isPresent()) {
+	        CreadorU primerCreador = optionalCreador.get();
+	        int idCreador = primerCreador.getId();
+	        LOGGER.info("Este creador es: {}", idCreador);
+	        model.addAttribute("idCreador", idCreador);
+	    } else {
+	        LOGGER.info("La lista de creadores está vacía");
+	    }
+	    
+	    //OBTENER LA LISTA DE LOS CURSOS POR IDCREADOR:
+	    
+	   
+	    List<Curso> cursos = creador_Service.finAllCourseIDCreador(optionalCreador.get().getId());
+	    if(!cursos.isEmpty()) {
+	    	 model.addAttribute("cursos", cursos);
+	    }else {
+	    	 
+	        model.addAttribute("cursos", null);
+	    }
+	    
+
+	     
+	    ///ENVIAR EL IDCREADOR A LAS SIGUIENTES VISTA
+	    session.setAttribute("idCreador", optionalCreador.get().getId());
+	    sessioUSER.setAttribute("idusuario", idUsuario);
+	    
+	    return "creador/Cursos";
 	}
+
+
+@GetMapping("/dash")
+public String dash(HttpSession session,HttpSession sessioUSER,Model usuario, Model model ) {
+	 int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+	 int idCreador = Integer.parseInt(sessioUSER.getAttribute("idCreador").toString());
+	session.getAttribute("idCreador");
+	sessioUSER.getAttribute("idusuario");
+	// OBTENER EL ATRIBUTO DE USUARIO DESDE EL MODELO
+    Usuario usuarioObject = (Usuario) model.getAttribute("usuario");
+    if (usuarioObject != null) {
+        usuario.addAttribute("Usuario", usuarioObject);
+    } else {
+    	// SI EL ATRIBUTO DE USUARIO NO ESTÁ PRESENTE EN EL MODELO, OBTENERLO DEL SERVICIO
+        Optional<Usuario> optionalUsuario = usuario_Service.get(idUsuario);
+        usuarioObject = optionalUsuario.orElse(null); // OBTENER EL OBJETO USUARIO O ASIGNAR NULL SI EL OPTIONAL ESTÁ VACÍO
+
+        usuario.addAttribute("Usuario", usuarioObject);
+        
+     // GUARDAR EL ATRIBUTO DE USUARIO EN EL MODELO PARA FUTURAS SOLICITUDES
+ 
+        model.addAttribute("usuario", usuarioObject);
+    }
+    
+      ///FUNCION PARA OBTENER EL TOTAL DE CURSOS:
+    List<Curso> cursos = creador_Service.finAllCourseIDCreador(idCreador);
+    int cantidadCursos = cursos.size();
+    model.addAttribute("cantidadC",cantidadCursos);
+
+	  ///FUNCION PARA OBTENER EL TOTAL DE VISUALIZACIONES:
+	    
+	  ///FUNCION PARA OBTENER EL TOTAL DE ESTUDIANTES:
+	    
+	  ///FUNCION PARA OBTENER EL TOTAL DE VALORACION:
+ 
+	return "creador/dash";
+}
+@GetMapping("ListaMotenizacion")
+public String ListaMotenizacion(HttpSession session,HttpSession sessioUSER, Model model, Model usuario) {
 	
+	int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+	 int idCreador = Integer.parseInt(session.getAttribute("idCreador").toString());
+		// OBTENER EL ATRIBUTO DE USUARIO DESDE EL MODELO
+	    Usuario usuarioObject = (Usuario) model.getAttribute("usuario");
+	    if (usuarioObject != null) {
+	        usuario.addAttribute("Usuario", usuarioObject);
+	    } else {
+	    	// SI EL ATRIBUTO DE USUARIO NO ESTÁ PRESENTE EN EL MODELO, OBTENERLO DEL SERVICIO
+	        Optional<Usuario> optionalUsuario = usuario_Service.get(idUsuario);
+	        usuarioObject = optionalUsuario.orElse(null); // OBTENER EL OBJETO USUARIO O ASIGNAR NULL SI EL OPTIONAL ESTÁ VACÍO
+
+	        usuario.addAttribute("Usuario", usuarioObject);
+	        
+	     // GUARDAR EL ATRIBUTO DE USUARIO EN EL MODELO PARA FUTURAS SOLICITUDES
+	 
+	        model.addAttribute("usuario", usuarioObject);
+	    }
+	    //OBTENER LA LISTA DE LOS CURSOS POR IDCREADOR:
+	    
+		   
+	    List<Curso> cursos = creador_Service.finAllCourseIDCreador(idCreador);
+	    if(!cursos.isEmpty()) {
+	    	 model.addAttribute("cursos", cursos);
+	    }else {
+	    	 
+	        model.addAttribute("cursos", null);
+	    }
+	 // OBTENER CURSO POR ID
+	    //------------------------------------------------------------------
+
+	    Map<Curso, Integer> vistasPorCurso = new HashMap<>();
+
+	    for (Curso curso : cursos) {
+	        int totalVistasCurso = 0;
+	        List<Seccion_Curso> seccionesCurso = creador_Service.findSeccionesCursoByCursoId(curso.getId());
+
+	        for (Seccion_Curso seccion : seccionesCurso) {
+	            List<Contenido> contenidos = creador_Service.findContenidoBySeccionId(seccion.getId());
+	            
+	            for (Contenido contenido : contenidos) {
+	                totalVistasCurso += contenido.getVizualizacion();
+	            }
+	        }
+	        
+	        vistasPorCurso.put(curso, totalVistasCurso);
+	        
+	    }
+
+	 // OBTENER DATOS CURSO Y TOTAL DE VISTA
+	    for (Map.Entry<Curso, Integer> entry : vistasPorCurso.entrySet()) {
+	        Curso curso = entry.getKey();
+	        int totalVistasCurso = entry.getValue();
+	        ///AQUI CADA VEZ QUE ENTRA ACTUALIZA LAS VISTAS TOTALES
+	        creador_Service.updateVistaCurso(curso.getId(), totalVistasCurso);
+	        LOGGER.info("Curso: {}, Vista Totales: {}", curso.getTitulo_G(), totalVistasCurso);
+	    }
+
+	    //------------------------------------------------------------------
+
+
+	    
+	    
+	    
+	    
+	return "creador/ListaMotenizacion";
+	
+}
+
+
+@GetMapping("monetizacion")
+public String monetizacion(HttpSession session,HttpSession sessioUSER, Model model, Model usuario,@RequestParam("id") Integer id) {
+	 int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+	 int idCreador = Integer.parseInt(session.getAttribute("idCreador").toString());
+		// OBTENER EL ATRIBUTO DE USUARIO DESDE EL MODELO
+	    Usuario usuarioObject = (Usuario) model.getAttribute("usuario");
+	    if (usuarioObject != null) {
+	        usuario.addAttribute("Usuario", usuarioObject);
+	    } else {
+	    	// SI EL ATRIBUTO DE USUARIO NO ESTÁ PRESENTE EN EL MODELO, OBTENERLO DEL SERVICIO
+	        Optional<Usuario> optionalUsuario = usuario_Service.get(idUsuario);
+	        usuarioObject = optionalUsuario.orElse(null); // OBTENER EL OBJETO USUARIO O ASIGNAR NULL SI EL OPTIONAL ESTÁ VACÍO
+
+	        usuario.addAttribute("Usuario", usuarioObject);
+	        
+	     // GUARDAR EL ATRIBUTO DE USUARIO EN EL MODELO PARA FUTURAS SOLICITUDES
+	 
+	        model.addAttribute("usuario", usuarioObject);
+	    }
+	    List<Curso> cursos = creador_Service.finAllCourseIDCurso(id);
+	    if (!cursos.isEmpty()) {
+	        for (Curso curso : cursos) {
+	        	 
+	            int vizualizacion = Integer.parseInt(curso.getVizualizacion_G());
+	            int pago = (int) Math.round((vizualizacion / 1000.0) * 5.78);
+	            curso.setHoras(pago+"");
+	        }
+	        
+	        model.addAttribute("cursos", cursos);
+	    } else {
+	        model.addAttribute("cursos", null);
+	    }
+
+	return null;
+}
+
 	
 	@GetMapping("Creacion_C")
 	public String Creacion_C(Model model) {
@@ -206,5 +408,8 @@ public String guardarImgCurso(@RequestParam("curso_id") Integer curso_id, @Reque
     attributes.addAttribute("idCurso", curso_id);
     return "redirect:/creador/Creacion_Secciones";
 }
+
+
+
 
 }
