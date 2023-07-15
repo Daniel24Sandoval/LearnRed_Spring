@@ -10,5 +10,5 @@ public interface Curso_Dao extends JpaRepository<Curso, Integer >{
 
 	 List<Curso> findAllById(Integer creadorU_id);
 	 List<Curso> findAllByCreadorU_id(Integer creadorU_id);
- 
+	  List<Curso> findAllByCategoriaId(int categoriaId);
 }

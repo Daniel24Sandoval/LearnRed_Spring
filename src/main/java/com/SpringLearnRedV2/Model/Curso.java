@@ -39,7 +39,8 @@ private List<Comentario> comentario;
 private List<Registro_P> registro_P;
 @OneToMany(mappedBy = "curso")
 private List<Seccion_Curso> seccion_Curso;
-
+@OneToMany(mappedBy = "curso")
+private List<Interacciones> interacciones;
 
 public Curso() {
 	super();
@@ -189,8 +190,15 @@ public void setSeccion_Curso(List<Seccion_Curso> seccion_Curso) {
 }
 
 
- 
+public List<Interacciones> getInteracciones() {
+	return interacciones;
+}
 
+
+public void setInteracciones(List<Interacciones> interacciones) {
+	this.interacciones = interacciones;
+}
+ 
 
 
 }

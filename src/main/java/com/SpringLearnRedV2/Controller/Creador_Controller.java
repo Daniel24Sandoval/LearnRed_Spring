@@ -50,7 +50,7 @@ public class Creador_Controller {
 	@GetMapping("")
 	public String Cursos(HttpSession session, Model model, Model usuario,HttpSession sessioUSER) {
 	    int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
-	    model.addAttribute("cursoList", creador_Service.finAllCourseIDCreador(1));
+	    model.addAttribute("cursoList", creador_Service.finAllCourseIDCreador(idUsuario));
 	    session.getAttribute("idusuario");
 	    
 	 // OBTENER EL ATRIBUTO DE USUARIO DESDE EL MODELO
@@ -244,20 +244,27 @@ public String monetizacion(HttpSession session,HttpSession sessioUSER, Model mod
 
 	
 	@GetMapping("Creacion_C")
-	public String Creacion_C(Model model) {
+	public String Creacion_C(Model model, HttpSession session,HttpSession sessioUSER) {
 		model.addAttribute("categoria", creador_Service.findAllCategorias());
-		
+		 int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+		 int idCreador = Integer.parseInt(sessioUSER.getAttribute("idCreador").toString());
+		 session.setAttribute("idUsuario", idUsuario);
+		 session.setAttribute("idCreador", idCreador);
 		return "creador/Creacion_C";
 	}
 	
 	
 	@PostMapping("/creacionC")
 	public String creacionC(@RequestParam("categoria") Integer idcategoria,
-	        @RequestParam("idusuario") Integer creadorU_id, Curso curso, RedirectAttributes attributes) {
+	        @RequestParam("idusuario") Integer creadorU_id, Curso curso, RedirectAttributes attributes,HttpSession session,HttpSession sessioUSER) {
+		int idUsuario = Integer.parseInt(session.getAttribute("idusuario").toString());
+		 int idCreador = Integer.parseInt(sessioUSER.getAttribute("idCreador").toString());
+		 session.setAttribute("idUsuario", idUsuario);
+		 session.setAttribute("idCreador", idCreador);
 	  LOGGER.info("Este objeto es producto: {}", curso);
 	  LOGGER.info("SI ESTA RECIENDO IDCREADOR {}", creadorU_id);
 
-	  creador_Service.save(curso, creadorU_id, idcategoria);
+	  creador_Service.save(curso, idCreador, idcategoria);
 	  
 	  // Obtén el ID del curso creado
 	  Integer idCursoCreado = curso.getId();

@@ -7,8 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SpringLearnRedV2.Dao.Contenido_Dao;
+import com.SpringLearnRedV2.Dao.Creador_Dao;
+import com.SpringLearnRedV2.Dao.Curso_Dao;
+import com.SpringLearnRedV2.Dao.Interaciones_Dao;
 import com.SpringLearnRedV2.Dao.Usuario_Dao;
 import com.SpringLearnRedV2.Model.Contenido;
+import com.SpringLearnRedV2.Model.CreadorU;
+import com.SpringLearnRedV2.Model.Curso;
+import com.SpringLearnRedV2.Model.Interacciones;
 import com.SpringLearnRedV2.Model.Usuario;
 
  
@@ -18,8 +24,13 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 	@Autowired
 	private Usuario_Dao usuario_Dao;
 	@Autowired
+	private Creador_Dao creador_Dao;
+	@Autowired
 	private Contenido_Dao contenido_Dao;
-	
+	@Autowired
+	private Interaciones_Dao interaciones_Dao ;
+	@Autowired
+	  private  Curso_Dao curso_Dao ;
 	@Override
 	public Usuario save(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -70,6 +81,37 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 		
 		
 		
+	}
+
+ 
+
+ 
+
+	@Override
+	public Interacciones save(Interacciones interacciones, int creadorU_id, int curso_id, int usuario_id) {
+		// TODO Auto-generated method stub
+		CreadorU creadorU =creador_Dao.findById(creadorU_id).orElse(null);
+		Curso curso =curso_Dao.findById(curso_id).orElse(null);
+		Usuario usuario = usuario_Dao.findById(usuario_id).orElse(null);
+		interacciones.setUsuario(usuario);
+		interacciones.setCreadorU(creadorU);
+		interacciones.setCurso(curso);
+		return interaciones_Dao.save(interacciones);
+	}
+
+	@Override
+	public List<Interacciones> findAllByUsuarioId(int id) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		return interaciones_Dao.findAllByUsuarioId(id);
+	}
+
+	@Override
+	public List<Curso> findCursosByCategoria(int categoriaid) {
+		// TODO Auto-generated method stub
+		return curso_Dao.findAllByCategoriaId(categoriaid);
 	}
 
 

@@ -25,7 +25,8 @@ public class CreadorU {
 	private List<Curso> curso;
 	@OneToMany(mappedBy = "creadorU")
 	private List<Grupo_Estudio> grupo_Estudio;
-
+	@OneToMany(mappedBy = "creadorU")
+	private List<Interacciones> interacciones;
 
 
 	public CreadorU() {
@@ -71,7 +72,12 @@ public class CreadorU {
 	}
 	public void setGrupo_Estudio(List<Grupo_Estudio> grupo_Estudio) {
 		this.grupo_Estudio = grupo_Estudio;
+	}
+	public List<Interacciones> getInteracciones() {
+		return interacciones;
+	}
+	public void setInteracciones(List<Interacciones> interacciones) {
+		this.interacciones = interacciones;
 	} 
-
 
 	}

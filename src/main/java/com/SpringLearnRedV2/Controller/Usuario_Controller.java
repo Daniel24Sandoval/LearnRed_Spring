@@ -1,10 +1,16 @@
 package com.SpringLearnRedV2.Controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
+ 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
- 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+ 
+import com.SpringLearnRedV2.Model.Categoria;
 import com.SpringLearnRedV2.Model.Contenido;
 import com.SpringLearnRedV2.Model.CreadorU;
+import com.SpringLearnRedV2.Model.Curso;
+import com.SpringLearnRedV2.Model.Interacciones;
 import com.SpringLearnRedV2.Model.Seccion_Curso;
 import com.SpringLearnRedV2.Model.Usuario;
 import com.SpringLearnRedV2.Service.Creador_Service;
@@ -37,7 +47,8 @@ private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 	private Usuario_Service usuario_Service; 
 	@Autowired
 	private Creador_Service creador_Service;
-
+	 
+	 
 	@GetMapping("")
 	public String home() {
 		
@@ -108,21 +119,74 @@ private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 	
 	
 	@GetMapping("/inicio")
-	public String inicio(Model model,HttpSession session) {
-		LOGGER.info("La Sesion del Usuario {}",session.getAttribute("idusuario"));
+	public String inicio(Model model, HttpSession session) {
+	    LOGGER.info("La Sesión del Usuario {}", session.getAttribute("idusuario"));
+	    model.addAttribute("Cursos_ALL", creador_Service.findAllCursos());
 
-		model.addAttribute("Cursos_ALL", creador_Service.findAllCursos());
-		 
-		return "usuario/inicio";
+	    //--------------------------------------------------------------------
+	    int idUsuario = (int) session.getAttribute("idusuario");
+	    List<Interacciones> interacciones = usuario_Service.findAllByUsuarioId(idUsuario);
+
+	    // OBTENER EL ID DEL CREADOR DE CURSOS DE LAS INTERACCIONES
+	    List<Integer> creadorIds = interacciones.stream()
+	            .map(interaccion -> interaccion.getCreadorU().getId())
+	            .collect(Collectors.toList());
+
+	    //--------------------------------------------------------------------
+	    // OBTENER LA CATEGORÍA DEL ÚLTIMO CURSO VISTO POR EL USUARIO
+	    Categoria ultimaCategoria = null;
+	    if (!interacciones.isEmpty()) {
+	        ultimaCategoria = interacciones.get(interacciones.size() - 1).getCurso().getCategoria();
+	    }
+	    if (ultimaCategoria != null) {
+	    	
+	    	 // BUSCAR CURSOS POR LOS ID DE LOS CREADORES
+		    List<Curso> cursosPorCreador = new ArrayList<>();
+		    for (int creadorId : creadorIds) {
+		        List<Curso> cursos = creador_Service.finAllCourseIDCreador(creadorId);
+		        cursosPorCreador.addAll(cursos);
+		    }
+		    
+		    // BUSCAR CURSOS POR LA CATEGORÍA DEL ÚLTIMO CURSO VISTO
+		    List<Curso> cursosPorCategoria = usuario_Service.findCursosByCategoria(ultimaCategoria.getId());
+		    
+		    Set<Curso> cursosRecomendados = new HashSet<>();
+		    cursosRecomendados.addAll(cursosPorCreador);
+		    cursosRecomendados.addAll(cursosPorCategoria);
+
+		    // CONVERTIR EL CONJUNTO EN UNA LISTA
+
+		    List<Curso> cursosRecomendadosLista = new ArrayList<>(cursosRecomendados);
+
+		    // MEZCLAR ALEATORIAMENTE LOS CURSOS RECOMENDADOS
+		    Collections.shuffle(cursosRecomendadosLista);
+
+		    // OBTENER LOS PRIMEROS 3 CURSOS DE LA LISTA MEZCLADA
+		    List<Curso> cursosMostrados = cursosRecomendadosLista.subList(0, Math.min(cursosRecomendadosLista.size(), 3));
+
+		    model.addAttribute("cursosRecomendados", cursosMostrados);
+	    	
+	    	
+	    	} else {
+	    		 model.addAttribute("cursosRecomendados", null);
+	    		
+	    }
+	    
+	   
+
+
+ 
+
+	    return "usuario/inicio";
 	}
+
 	
 	
 	
 	@GetMapping("/Reproductor")
 	public String Reproductor(@RequestParam("id") Integer id, Model curso, Model secciones,
 			Model contenido, RedirectAttributes attributes,HttpSession session) {
-
-
+		LOGGER.info("La Sesion del Usuario {}",session.getAttribute("idusuario"));
 	// OBTENER CURSO POR ID
 	curso.addAttribute("cursoxid", creador_Service.finAllCourseIDCurso(id));
 
@@ -142,6 +206,34 @@ private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 	contenido.addAttribute("contenidoxidseccion", contenidosRelacionados);
 	attributes.addAttribute("idCurso", id);
 	curso.addAttribute("id", id);
+	 ///OBTENER FECHA:
+	LocalDate fechaLocal = LocalDate.now();
+    Date fechaSQL = Date.valueOf(fechaLocal);
+	
+	//CAPTURAR DATOS PARA ALMACENAR EN INTERACCIONES:
+    List<Curso> cursos = creador_Service.finAllCourseIDCurso(id);
+    for (Curso cursoss : cursos) {
+        Interacciones interacciones = new Interacciones(); // Crear una nueva instancia de Interacciones
+        String titulo = cursoss.getTitulo_G();
+        int idcreador = cursoss.getCreadorU().getId();
+        Date fecha = fechaSQL;
+        int idc = cursoss.getId();
+        int idusuario = (int) session.getAttribute("idusuario");
+        interacciones.setTitulo(titulo);
+        interacciones.setFecha(fecha);
+        usuario_Service.save(interacciones, idcreador, idc, idusuario);
+    }
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	LOGGER.info("La Sesion del Usuario {}",session.getAttribute("idusuario"));
 
 	return "usuario/Reproductor";
@@ -195,8 +287,9 @@ private final Logger LOGGER=LoggerFactory.getLogger(Usuario_Controller.class);
 		Optional<Usuario> usu = usuario_Service.get(idUsuario);
 
 		if (usu.isPresent()) {
-	 
-		  if(usu.get().getCreador().equals(true)) {
+			Boolean creador = usu.get().getCreador();
+
+		  if(creador != null && creador.equals(true)) {
 			  LOGGER.info("La Sesion del Usuario {}",session.getAttribute("idusuario"));
 			  Optional<Usuario> optionalUsuario = usuario_Service.get(idUsuario);
 			    Usuario usuarioObject = optionalUsuario.orElse(null); // Obtener el objeto Usuario o asignar null si el Optional está vacío

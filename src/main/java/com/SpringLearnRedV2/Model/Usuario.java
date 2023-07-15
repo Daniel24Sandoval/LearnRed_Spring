@@ -40,6 +40,8 @@ public class Usuario {
 				@OneToMany(mappedBy = "usuario")
 				private List<Integracion_GrupoE> integracion_GrupoE;
 				//CARDINIALIDAD INDIRECTA:
+				@OneToMany(mappedBy = "usuario")
+				private List<Interacciones> interacciones;
 		public Usuario() {
 		}
 
@@ -309,6 +311,32 @@ public class Usuario {
 
 
 
+		public CreadorU getCradoru() {
+			return cradoru;
+		}
+
+
+
+
+
+
+
+
+
+
+		public void setCradoru(CreadorU cradoru) {
+			this.cradoru = cradoru;
+		}
+
+
+
+
+
+
+
+
+
+
 		public Valoracion getValoracion() {
 			return valoracion;
 		}
@@ -387,23 +415,53 @@ public class Usuario {
 
 
 
+		public List<Interacciones> getInteracciones() {
+			return interacciones;
+		}
+
+
+
+
+
+
+
+
+
+
+		public void setInteracciones(List<Interacciones> interacciones) {
+			this.interacciones = interacciones;
+		}
+
+
+
+
+
+
+
+
+
+
 		@Override
 		public String toString() {
 			return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
 					+ ", password=" + password + ", rol=" + rol + ", estado=" + estado + ", fechaC=" + fechaC
-					+ ", creador=" + creador + ", valoracion=" + valoracion + ", comentario=" + comentario
-					+ ", integracion_GrupoE=" + integracion_GrupoE + ", getId()=" + getId() + ", getNombre()="
-					+ getNombre() + ", getApellido()=" + getApellido() + ", getCorreo()=" + getCorreo()
-					+ ", getPassword()=" + getPassword() + ", getRol()=" + getRol() + ", getEstado()=" + getEstado()
-					+ ", getFechaC()=" + getFechaC() + ", getCreador()=" + getCreador() + ", getValoracion()="
-					+ getValoracion() + ", getComentario()=" + getComentario() + ", getIntegracion_GrupoE()="
-					+ getIntegracion_GrupoE() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-					+ ", toString()=" + super.toString() + "]";
+					+ ", creador=" + creador + ", cradoru=" + cradoru + ", valoracion=" + valoracion + ", comentario="
+					+ comentario + ", integracion_GrupoE=" + integracion_GrupoE + ", interacciones=" + interacciones
+					+ ", getId()=" + getId() + ", getNombre()=" + getNombre() + ", getApellido()=" + getApellido()
+					+ ", getCorreo()=" + getCorreo() + ", getPassword()=" + getPassword() + ", getRol()=" + getRol()
+					+ ", getEstado()=" + getEstado() + ", getFechaC()=" + getFechaC() + ", getCreador()=" + getCreador()
+					+ ", getCradoru()=" + getCradoru() + ", getValoracion()=" + getValoracion() + ", getComentario()="
+					+ getComentario() + ", getIntegracion_GrupoE()=" + getIntegracion_GrupoE() + ", getInteracciones()="
+					+ getInteracciones() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+					+ super.toString() + "]";
 		}
 
 
- 
 
+
+
+
+ 
  
  
 	 

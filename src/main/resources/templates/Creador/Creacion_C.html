@@ -15,19 +15,22 @@
 <body>
     <!-- =============== Navigation ================ -->
     <div class="container">
-  <div class="navigation">
+   <div class="navigation">
     <ul>
         <li>
             <a href="#">
                 <span class="icon">
                     <ion-icon name="person-circle-outline"></ion-icon>
                 </span>
-                <span class="title">Enrique Sandoval</span>
+                
+              <div th:each="usuario: ${usuario}">
+                <span th:text="${usuario.Nombre} + ${usuario.Apellido}" class="title"></span>
+            </div>  
             </a>
         </li>
 
         <li>
-            <a href="#">
+            <a th:href="@{/creador/dash}">
                 <span class="icon">
                     <ion-icon name="home-outline"></ion-icon>
                 </span>
@@ -36,7 +39,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a >
                 <span class="icon">
                     <ion-icon name="people-outline"></ion-icon>
                 </span>
@@ -45,7 +48,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a th:href="@{/creador}">
                 <span class="icon">
                     <ion-icon name="school-outline"></ion-icon>
                 </span>
@@ -62,14 +65,15 @@
             </a>
         </li>
 
-        <li>
-            <a href="#">
-                <span class="icon">
-                    <ion-icon name="help-outline"></ion-icon>
-                </span>
-                <span class="title">Ayuda</span>
-            </a>
-        </li>
+ <li>
+    <a th:href="@{/creador/ListaMotenizacion}">
+        <span class="icon">
+            <ion-icon name="cash-outline"></ion-icon>
+        </span>
+        <span class="title">Monetización</span>
+    </a>
+</li>
+
 
         <li>
             <a href="#">

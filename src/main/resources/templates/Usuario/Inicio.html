@@ -28,30 +28,7 @@
 	
 	<!-- PRESENTACION DE CURSO DESTACADO -->
 
-<h1 class="titulo-destacado">Curso de la semana</h1>
 
-<div class="curso-semana-tarjeta">
-	
-  <div class="curso-semana-imagen">
-    <img th:src="@{../img/P111.png}" alt="Imagen curso">
-  </div>
-  <div class="curso-semana-informacion">
-    <h3>Desarrollo Web Completo con HTML5, CSS3, JS AJAX PHP y MySQL</h3>
-    <p>Aprende Desarrollo Web con este curso 100% práctico, paso a paso y sin conocimientos previos. INCLUYE 4 PROYECTOS FINALES</p>
-    <div class="valoracion">
-      <!-- Código para mostrar las estrellas de valoración -->
-      <div class="valoracion">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star-o"></i>
-      </div>
-      <a href="enlace-curso" class="btn">Ver Ahora</a>
-    </div>
-    <p>Duración: 83 horas</p>
-  </div>
-</div><br><br><br>
 
 
 
@@ -94,8 +71,33 @@
 </div>
 
 
-	
+	<h1 class="titulo-destacado">Cursos Recomedados	</h1>
+  <br>
+ <div class="curso-semana-tarjeta" th:each="contenido: ${cursosRecomendados}">
+  <div class="curso-semana-imagen">
+    <img th:src="${contenido.Anuncio}" alt="Imagen curso">
+  </div>
+  <div class="curso-semana-informacion">
+    <h3 th:text="${contenido.Titulo_G}"></h3>
+    <p th:text="${contenido.Descripcion}"></p>
+    
+    <div class="valoracion">
+      <!-- Código para mostrar las estrellas de valoración -->
+      <div class="valoracion">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+      </div>
+      <a href="enlace-curso" class="btn">Ver Ahora</a>
+    </div>
+    <p>Duración: 83 horas</p>
+  </div>
+  <br class="clear">
+</div>
 
+  
 	
    <h1 id="categoria" class="titulo-destacado">Categorias</h1>
 	

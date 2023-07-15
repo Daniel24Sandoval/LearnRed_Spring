@@ -8,7 +8,7 @@
     <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
     <!-- ======= Styles ====== -->
 <link rel="stylesheet" href="ruta/al/archivo/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
 
 
     <link rel="stylesheet" th:href="@{../css/style_cursos.css}">
@@ -24,12 +24,15 @@
                 <span class="icon">
                     <ion-icon name="person-circle-outline"></ion-icon>
                 </span>
-                <span class="title">Enrique Sandoval</span>
+                
+              <div th:each="usuario: ${usuario}">
+                <span th:text="${usuario.Nombre} + ${usuario.Apellido}" class="title"></span>
+            </div>  
             </a>
         </li>
 
         <li>
-            <a href="#">
+            <a th:href="@{/creador/dash}">
                 <span class="icon">
                     <ion-icon name="home-outline"></ion-icon>
                 </span>
@@ -38,7 +41,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a >
                 <span class="icon">
                     <ion-icon name="people-outline"></ion-icon>
                 </span>
@@ -47,7 +50,7 @@
         </li>
 
         <li>
-            <a href="#">
+            <a th:href="@{/creador}">
                 <span class="icon">
                     <ion-icon name="school-outline"></ion-icon>
                 </span>
@@ -64,14 +67,15 @@
             </a>
         </li>
 
-        <li>
-            <a href="#">
-                <span class="icon">
-                    <ion-icon name="help-outline"></ion-icon>
-                </span>
-                <span class="title">Ayuda</span>
-            </a>
-        </li>
+ <li>
+    <a th:href="@{/creador/ListaMotenizacion}">
+        <span class="icon">
+            <ion-icon name="cash-outline"></ion-icon>
+        </span>
+        <span class="title">Monetización</span>
+    </a>
+</li>
+
 
         <li>
             <a href="#">
