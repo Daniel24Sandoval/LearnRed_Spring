@@ -19,6 +19,8 @@ public interface Creador_Service {
 	    public CreadorU save(CreadorU creadorU, Integer idUsuario);
 	    ///LISTAR CURSOS
 	    public List<Curso> findAllCursos();
+	  
+	    public List<CreadorU> findAllCreadores();
 	    public List<Curso> finAllCourseIDCreador(Integer creadorU_id);
 	    public List<Curso> finAllCourseIDCurso(Integer id);
 	   /// public Contenido  finAllContenidoUniqueById(Integer contenido_id); 

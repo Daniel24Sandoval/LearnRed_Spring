@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.SpringLearnRedV2.Dao.Contenido_Dao;
 import com.SpringLearnRedV2.Dao.Creador_Dao;
 import com.SpringLearnRedV2.Dao.Curso_Dao;
+import com.SpringLearnRedV2.Dao.Curso_Dao2;
 import com.SpringLearnRedV2.Dao.Interaciones_Dao;
 import com.SpringLearnRedV2.Dao.Usuario_Dao;
 import com.SpringLearnRedV2.Model.Contenido;
@@ -31,6 +32,8 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 	private Interaciones_Dao interaciones_Dao ;
 	@Autowired
 	  private  Curso_Dao curso_Dao ;
+	@Autowired
+	  private  Curso_Dao2 curso_Dao2 ;
 	@Override
 	public Usuario save(Usuario usuario) {
 		// TODO Auto-generated method stub
@@ -46,7 +49,7 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 	@Override
 	public List<Usuario> finaAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return usuario_Dao.findAll();
 	}
 
 	@Override
@@ -116,6 +119,11 @@ public class Usuario_Service_Implem  implements Usuario_Service{
 
 
 	 
+	@Override
+	public List<Curso> findAllCursosnormal() {
+		// TODO Auto-generated method stub
+		return curso_Dao2.findAll();
+	}
 
  
  

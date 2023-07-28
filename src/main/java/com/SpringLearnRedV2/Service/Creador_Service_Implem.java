@@ -225,6 +225,13 @@ public class Creador_Service_Implem implements Creador_Service{
 		  
 	}
 
+	@Override
+	public List<CreadorU> findAllCreadores() {
+		// TODO Auto-generated method stub
+		return creador_Dao.findAll();
+	}
+
+
 	 
  
  

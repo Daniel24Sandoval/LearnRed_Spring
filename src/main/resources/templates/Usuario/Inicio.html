@@ -14,61 +14,73 @@
 <body>
 	          <div th:insert="~{usuario/Template_Admin.html :: header}"></div>
 
-	
-	<div  class="container_busqueda" >
-		<form action="#" method="get" class="search-bar">
-			<input type="text" placeholder="Busqueda" name="q">
-			<button type="submit"><img src="../img/search.png" alt="	"></button>
-		</form>
-		
-		
-	</div>
-	
-	
-	
-	<!-- PRESENTACION DE CURSO DESTACADO -->
+ <div class="container_busqueda">
+  <form action="#" method="get" class="search-bar">
+    <input type="text" placeholder="Búsqueda" name="q" oninput="filtrarCursos(this.value)">
+  </form>
+</div>
 
-
-
-
-
-<h1 class="titulo-destacado">Lista de Cursos</h1>
-	   <!-- PRESENTACION DE LISTA DE VIDEOS -->
-	 
-	 <div class="tarjeta-container">
-		 <!--  -->
- <div th:each="Cursos: ${Cursos_ALL}" class="tarjeta">
-  <a th:href="@{/usuario/Reproductor(id=${Cursos.id})}"> 
-
-    <div class="imagen-container">
-      <img th:src="${Cursos.Anuncio}" alt="Imagen del curso">
-      <div class="reproduccion-icono">
-        <i class="fa fa-play"></i>
+<h1 class="titulo-destacado">Mis Cursos</h1>
+<div class="tarjeta-container">
+  <div th:each="curso : ${Cursos_ALL}" class="tarjeta">
+    <a th:href="@{/usuario/Reproductor(id=${curso.id})}">
+      <div class="imagen-container">
+        <img th:src="${curso.Anuncio}" alt="Imagen del curso">
+        <div class="reproduccion-icono">
+          <i class="fa fa-play"></i>
+        </div>
       </div>
-    </div>
-    <h3 th:text="${Cursos.Titulo_G}"> </h3>
-    <div class="valoracion">
-      <!-- Código para mostrar las estrellas de valoración -->
+      <h3 th:text="${curso.Titulo_G}"></h3>
       <div class="valoracion">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star-o"></i>
+        <div class="valoracion">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-o"></i>
+        </div>
       </div>
-    </div>
-    <p th:text="${Cursos.Vizualizacion_G}"> </p>
-    <p>Clases: 788</p>
-    <p>Tiempo: 82hrs</p>
-  </a>
+      <p th:text="${curso.Vizualizacion_G}"></p>
+      <p>Clases: 788</p>
+      <p>Tiempo: 82hrs</p>
+    </a>
+  </div>
+  <p id="mensaje-no-resultado" style="display: none; color: white;">No se encontraron resultados.</p>
 </div>
 
-   
+<script>
+  const tarjetas = document.querySelectorAll(".tarjeta");
+  const mensajeNoResultado = document.getElementById("mensaje-no-resultado");
 
-  
-  <!-- Repite el mismo patrón para más tarjetas -->
-  
-</div>
+  function filtrarCursos(busqueda) {
+    const expresion = new RegExp(busqueda, "i");
+    let seEncontroResultado = false;
+
+    tarjetas.forEach(function (tarjeta) {
+      const titulo = tarjeta.querySelector("h3");
+      if (expresion.test(titulo.textContent)) {
+        tarjeta.style.display = "block";
+        seEncontroResultado = true;
+      } else {
+        tarjeta.style.display = "none";
+      }
+    });
+
+    if (seEncontroResultado) {
+      mensajeNoResultado.style.display = "none";
+    } else {
+      mensajeNoResultado.style.display = "block";
+    }
+
+    if (busqueda === "") {
+      tarjetas.forEach(function (tarjeta) {
+        tarjeta.style.display = "block";
+      });
+      mensajeNoResultado.style.display = "none";
+    }
+  }
+</script>
+
 
 
 	<h1 class="titulo-destacado">Cursos Recomedados	</h1>

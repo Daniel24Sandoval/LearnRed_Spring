@@ -23,5 +23,5 @@ public interface Usuario_Service {
 	public Interacciones save(Interacciones interacciones, int 	creadorU_id,int	curso_id	, int usuario_id);
 	public List<Interacciones> findAllByUsuarioId(int id);
 	public List<Curso>findCursosByCategoria(int categoriaid);
-	
+	  public List<Curso> findAllCursosnormal();
 	 }
